@@ -26,7 +26,7 @@ def multiplicacao(numeros):
 def divisao(numeros):
     total = 0
     for numero in numeros:
-        total = total / numero
+        total = total / numero  
     print(total)
 
 # Array de operações matemáticas
@@ -59,7 +59,19 @@ def menuOperacoes():
     # Executa todas as operações dentro da fila de operações    
     elif funcaoDesejada == 3:
         print("Executar Todas as Operações da Fila")
-        
+        for tipoOperacao, numeros in filaDeOperacoes:
+            if tipoOperacao == 'somar':
+                operacoes["somar"](numeros)
+                
+            elif tipoOperacao == 'subtrair':
+                operacoes["subtrair"](numeros)
+                
+            elif tipoOperacao == 'multiplicar':
+                operacoes["multiplicar"](numeros)
+
+            elif tipoOperacao == 'dividir':
+                operacoes["dividir"](numeros)
+            
     elif funcaoDesejada == 0:
         print("Voltando...")
 
@@ -109,12 +121,24 @@ def colherNumeros(operacao):
                 validador = False
                 if operacao == 1:
                     filaDeOperacoes.append(['somar', numeros])
-                    print("Fila de operações",filaDeOperacoes)
+                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
                 elif operacao == 2:
                     filaDeOperacoes.append(['subtrair', numeros])
-                    print("Fila de operações",filaDeOperacoes)
+                    print("Fila de operações", filaDeOperacoes)
+                    menuOperacoes()
+                    
+                # Corrigir a função pois está retornando o valor 0
+                elif operacao == 3:
+                    filaDeOperacoes.append(['multiplicar', numeros])
+                    print("Fila de operações", filaDeOperacoes)
+                    menuOperacoes()
+                
+                # Corrigir a função pois está retornando o valor 0
+                elif operacao == 4:
+                    filaDeOperacoes.append(['dividir', numeros])
+                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
         # Caso digite algo que não seja um número, o usuário receberá essa mensagem e poderá digitar novamente.
