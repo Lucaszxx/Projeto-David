@@ -17,17 +17,18 @@ def subtracao(numeros):
 
 
 def multiplicacao(numeros):
-    total = 0
+    total = 1
     for numero in numeros:
         total = total * numero
     print(total)
 
 
 def divisao(numeros):
-    total = 0
-    for numero in numeros:
-        total = total / numero  
+    total = numeros[0]
+    for numero in numeros[1:]:
+        total = total / numero
     print(total)
+
 
 # Array de operações matemáticas
 operacoes = {
@@ -40,38 +41,134 @@ operacoes = {
 
 # Menu de operaçoes matématicas e fila
 filaDeOperacoes = []
+contador = 0
+
+
 def menuOperacoes():
     funcaoDesejada = int(input(
         "1 - Adicionar Operação na Fila\n2 - Executar Próxima Operação da Fila\n3 - Executar Todas as Operações da Fila\n0 - Voltar para o menu principal\n->"))
-    
+
     # Função que adiciona uma operação a fila de operações
     if funcaoDesejada == 1:
         print("Adicionar Operação na Fila")
-        print(
-            "------------------------------------------------------------------")
+        print("------------------------------------------------------------------")
         operacao = int(input(
             "1 - Adição(+)\n2 - Subtração (-)\n3 - Multiplicação (*)\n4 - Divisão (/)\n->"))
         colherNumeros(operacao)
-    
+
+    # FAZENDO AGORA!!!!!!!!!
     elif funcaoDesejada == 2:
         print("Executar Próxima Operação da Fila")
-    
-    # Executa todas as operações dentro da fila de operações    
-    elif funcaoDesejada == 3:
-        print("Executar Todas as Operações da Fila")
-        for tipoOperacao, numeros in filaDeOperacoes:
-            if tipoOperacao == 'somar':
-                operacoes["somar"](numeros)
-                
-            elif tipoOperacao == 'subtrair':
-                operacoes["subtrair"](numeros)
-                
-            elif tipoOperacao == 'multiplicar':
-                operacoes["multiplicar"](numeros)
+        tipo = filaDeOperacoes[contador][contador]
+        valores = filaDeOperacoes[contador][1]
 
-            elif tipoOperacao == 'dividir':
-                operacoes["dividir"](numeros)
+        if tipo == 'somar':
+            print("---------------------------------------------")
+            print(f"Tipo de operação: {tipo}")
+            print("---------------------------------------------")
+            print("Os valores são:")
+            # remove os colchetes das listas
+            print('%s' % ' + '.join(map(str, valores)))
+            print("---------------------------------------------")
+            print("O resultado da soma é:")
+            operacoes["somar"](valores)
+            print("---------------------------------------------")
+            return menuOperacoes()
+
+        elif tipo == 'subtrair':
+            print("---------------------------------------------")
+            print(f"Tipo de operação: {tipo}")
+            print("---------------------------------------------")
+            print("Os valores são:")
+            # remove os colchetes das listas
+            print('%s' % ' - '.join(map(str, valores)))
+            print("---------------------------------------------")
+            print("O resultado da subtração é:")
+            operacoes["subtrair"](valores)
+            print("---------------------------------------------")
+            return menuOperacoes()
+
+        elif tipo == 'multiplicar':
+            print("---------------------------------------------")
+            print(f"Tipo de operação: {tipo}")
+            print("---------------------------------------------")
+            # remove os colchetes das listas
+            print("Os valores são:")
+            print('%s' % ' x '.join(map(str, valores)))
+            print("---------------------------------------------")
+            print("O resultado da multiplicação é:")
+            operacoes["multiplicar"](valores)
+            print("---------------------------------------------")
+            return menuOperacoes()
+
+        elif tipo == 'dividir':
+            print("---------------------------------------------")
+            print(f"Tipo de operação: {tipo}")
+            print("---------------------------------------------")
+            print("Os valores são:")
+            # remove os colchetes das listas
+            print('%s' % ' / '.join(map(str, valores)))
+            print("---------------------------------------------")
+            print("O resultado da divisão é:")
+            operacoes["dividir"](valores)
+            print("---------------------------------------------")
+            return menuOperacoes()
             
+    # Executa todas as operações dentro da fila de operações
+    elif funcaoDesejada == 3:
+        if len(filaDeOperacoes) == 0:
+            print("A fila de operações está vazia!")
+        else:
+            print("Executar Todas as Operações da Fila")
+            for tipoOperacao, numeros in filaDeOperacoes:
+                if tipoOperacao == 'somar':
+                    print("---------------------------------------------")
+                    print(f"Tipo de operação: {tipoOperacao}")
+                    print("---------------------------------------------")
+                    print("Os valores são:")
+                    # remove os colchetes das listas
+                    print('%s' % ' + '.join(map(str, numeros)))
+                    print("---------------------------------------------")
+                    print("O resultado da soma é:")
+                    operacoes["somar"](numeros)
+                    print("---------------------------------------------")
+
+                elif tipoOperacao == 'subtrair':
+                    print("---------------------------------------------")
+                    print(f"Tipo de operação: {tipoOperacao}")
+                    print("---------------------------------------------")
+                    print("Os valores são:")
+                    # remove os colchetes das listas
+                    print('%s' % ' - '.join(map(str, numeros)))
+                    print("---------------------------------------------")
+                    print("O resultado da subtração é:")
+                    operacoes["subtrair"](numeros)
+                    print("---------------------------------------------")
+
+                elif tipoOperacao == 'multiplicar':
+                    print("---------------------------------------------")
+                    print(f"Tipo de operação: {tipoOperacao}")
+                    print("---------------------------------------------")
+                    # remove os colchetes das listas
+                    print("Os valores são:")
+                    print('%s' % ' x '.join(map(str, numeros)))
+                    print("---------------------------------------------")
+                    print("O resultado da multiplicação é:")
+                    operacoes["multiplicar"](numeros)
+                    print("---------------------------------------------")
+
+                elif tipoOperacao == 'dividir':
+                    print("---------------------------------------------")
+                    print(f"Tipo de operação: {tipoOperacao}")
+                    print("---------------------------------------------")
+                    print("Os valores são:")
+                    # remove os colchetes das listas
+                    print('%s' % ' / '.join(map(str, numeros)))
+                    print("---------------------------------------------")
+                    print("O resultado da divisão é:")
+                    operacoes["dividir"](numeros)
+                    print("---------------------------------------------")
+
     elif funcaoDesejada == 0:
         print("Voltando...")
 
@@ -96,6 +193,8 @@ def menu():
         exit
 
 # Colhedor de números.
+
+
 def colherNumeros(operacao):
     numeros = []
     numero = 0
@@ -115,7 +214,8 @@ def colherNumeros(operacao):
                 print(
                     "-----------------------------------------------------------------------")
                 print("É necessário pelo menos 2 números para fazer qualquer cálculo...")
-                print("-----------------------------------------------------------------------")
+                print(
+                    "-----------------------------------------------------------------------")
                 colherNumeros()
             else:
                 validador = False
@@ -128,13 +228,13 @@ def colherNumeros(operacao):
                     filaDeOperacoes.append(['subtrair', numeros])
                     print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
-                    
+
                 # Corrigir a função pois está retornando o valor 0
                 elif operacao == 3:
                     filaDeOperacoes.append(['multiplicar', numeros])
                     print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
-                
+
                 # Corrigir a função pois está retornando o valor 0
                 elif operacao == 4:
                     filaDeOperacoes.append(['dividir', numeros])
@@ -144,6 +244,7 @@ def colherNumeros(operacao):
         # Caso digite algo que não seja um número, o usuário receberá essa mensagem e poderá digitar novamente.
         else:
             print("Digite somente números!")
-            
+
+
 # Iniciar programa
 menu()
