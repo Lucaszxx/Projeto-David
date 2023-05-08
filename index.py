@@ -47,7 +47,6 @@ contador = 0
 def menuOperacoes():
     funcaoDesejada = int(input(
         "1 - Adicionar Operação na Fila\n2 - Executar Próxima Operação da Fila\n3 - Executar Todas as Operações da Fila\n0 - Voltar para o menu principal\n->"))
-
     # Função que adiciona uma operação a fila de operações
     if funcaoDesejada == 1:
         print("Adicionar Operação na Fila")
@@ -186,6 +185,31 @@ def menuOperacoes():
         print("---------------------------------------------")
         return menu()
 
+    else:
+        print("Opção inexistente...")
+        return menuOperacoes()
+
+# Validador de expressão 
+def validaExpressao():
+    expressao = int(input('Insira a expressão: '))
+    pilha = []
+    pares_validos = {'(': ')', '[': ']', '{': '}'}
+
+    for simbolo in expressao:
+        if simbolo in pares_validos:
+            # Empilha símbolo de abertura
+            pilha.append(simbolo)
+        elif simbolo in pares_validos:
+            # Verifica se o último símbolo empilhado é um par válido
+            if len(pilha) == 0 or pares_validos[pilha.pop()] != simbolo:
+                return "INVÁLIDA"
+    
+    # Verifica se ainda há símbolos na pilha (não houve símbolo de fechamento para todos os de abertura)
+    if len(pilha) == 0:
+        return "VÁLIDA"
+    else:
+        return "INVÁLIDA"
+
 
 # Menu principal.
 def menu():
@@ -199,7 +223,7 @@ def menu():
 
     # Expressões (Não tem Menu).
     elif opcaoSelecionada == 2:
-        print("Não há menu")
+        validaExpressao()
 
     # Finalizar o programa.
     elif opcaoSelecionada == 0:
@@ -215,8 +239,7 @@ def colherNumeros(operacao):
     validador = True
 
     while validador == True:
-        numero = input(
-            "Digite um número: | caso não queira mais digitar, digite: '*'\n->")
+        numero = input("Digite um número: | caso não queira mais digitar, digite: '*'\n->")
         if numero.isdigit():
             numero = int(numero)
             numeros.append(numero)
@@ -234,24 +257,20 @@ def colherNumeros(operacao):
                 validador = False
                 if operacao == 1:
                     filaDeOperacoes.append(['somar', numeros])
-                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
                 elif operacao == 2:
                     filaDeOperacoes.append(['subtrair', numeros])
-                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
                 # Corrigir a função pois está retornando o valor 0
                 elif operacao == 3:
                     filaDeOperacoes.append(['multiplicar', numeros])
-                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
                 # Corrigir a função pois está retornando o valor 0
                 elif operacao == 4:
                     filaDeOperacoes.append(['dividir', numeros])
-                    print("Fila de operações", filaDeOperacoes)
                     menuOperacoes()
 
         # Caso digite algo que não seja um número, o usuário receberá essa mensagem e poderá digitar novamente.
